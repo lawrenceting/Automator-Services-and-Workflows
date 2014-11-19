@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>381</string>
+	<key>AMApplicationVersion</key>
+	<string>2.4</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run {input, parameters}		do shell script "sqlite3 ~/Library/Mail/V2/MailData/Envelope\\ Index vacuum;"		--return inputend run</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>DBDB154C-EE79-4744-A460-04DFCC915A0F</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>263C4027-6B0C-4C1B-81DA-9324D0601BA7</string>
+				<key>UUID</key>
+				<string>CF70041B-7377-4138-A894-05420FE643A2</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<false/>
+				<key>location</key>
+				<string>353.000000:1095.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>property button_1 : "Cancel"property button_2 : "Attach Files"property button_3 : "Continue"global inputTextglobal theMessageglobal messageAsParagraphglobal buttonReturnedglobal dialogBoxDefaultTextglobal dialogBoxLinesglobal itemNumberglobal theAttachmentglobal previously_attahcedglobal attachedFileListglobal recipientAddressglobal listNameglobal listTypeglobal listAddressglobal combinedDetailsglobal selectedNumberglobal theBuddyglobal every_window_nameglobal mailboxDrafts--global selectedName--global selectedType--global selectedAddresson run {input, parameters}	set buttonReturned to ""	set dialogBoxDefaultText to ((return &amp; return &amp; return) as string)	set dialogBoxLines to (count of (every paragraph of dialogBoxDefaultText))	set itemNumber to 0	set previously_attahced to 0	set attachedFileList to ""		(* Test *)	--attachFilesDialog()	--set input to "xxx"		if (input as string) contains "Macintosh HD:" then		try			set text item delimiters to ":"			set filename to last text item of ((item (count of input) of input) as text)						if (filename as string) contains "." then				set theMessage to dialogBoxDefaultText				set theAttachment to input			end if		end try	else if input is equal to "" then		set theMessage to dialogBoxDefaultText		set theAttachment to ""	else		set theMessage to ((input &amp; dialogBoxDefaultText) as string)		set theAttachment to ""	end if	---------------------------------------------------------------------------------------------------	(* Dialog: Message and Attachment *)	---------------------------------------------------------------------------------------------------	if (count of theAttachment) is greater than 0 then		createAttachedFileList()	end if		repeat --infinite loop		sendMessageDialog()				if buttonReturned is equal to button_2 then			attachFilesDialog()			createAttachedFileList()		end if				if (buttonReturned is equal to button_1) then			killApp()			error number -128		end if		if (buttonReturned is equal to button_3) then			exit repeat		end if	end repeat		--Remove empty lines	set num to (count of messageAsParagraph)	repeat until (num = 1)		if (item num of the messageAsParagraph = "") then			set num to (num - 1)		else			exit repeat		end if	end repeat		set x to 0	repeat num times		set x to x + 1		if x = 1 then			set theMessage to ((item x of the messageAsParagraph) as string)		else			set theMessage to the theMessage &amp; return &amp; ((item x of the messageAsParagraph) as string)		end if	end repeat	--set lastParagraph to last item of (messageAsParagraph)			chooseRecipient()end run---------------------------------------------------------------------------------------------------(* Send Message Dialog *)---------------------------------------------------------------------------------------------------to sendMessageDialog()	set inputText to theMessage	set theMessage to inputText	set buttonReturned to button_3		(*	tell application "System Events"		activate --To bring pop-up window to front		set inputText to ¬			display dialog "" &amp; attachedFileList with title "New Message" with icon file "Macintosh HD:Applications:Messages.app:Contents:Resources:Messages.icns" default answer theMessage ¬				buttons {button_1, button_2, button_3} ¬				default button 3		--cancel button 1		set theMessage to (text returned of inputText)		set buttonReturned to button returned of inputText	end tell	*)		set messageAsParagraph to every paragraph of theMessage		repeat until ((count of messageAsParagraph) &gt; (dialogBoxLines - 1))		set messageAsParagraph to every paragraph of theMessage				set theMessage to (theMessage &amp; return)	end repeatend sendMessageDialog---------------------------------------------------------------------------------------------------(* Create Attachment List *)---------------------------------------------------------------------------------------------------to createAttachedFileList()	set latest_attached to ((count of theAttachment) - previously_attahced)	(* latest_attached refers to the lastest attachments in addition to attachments previously attached*)		repeat (latest_attached) times		set itemNumber to (itemNumber + 1)		try			set text item delimiters to ":"			set file_name to last text item of (item itemNumber of theAttachment as text)			set text item delimiters to ""		on error			set text item delimiters to ""		end try				set attachedFileList to (attachedFileList &amp; return &amp; "File " &amp; itemNumber &amp; ": " &amp; file_name)	end repeat		set previously_attahced to count of theAttachment		if latest_attached is equal to (count of theAttachment) then		set attachedFileList to ("Attached File(s):" &amp; attachedFileList)	end ifend createAttachedFileList---------------------------------------------------------------------------------------------------(* Select Location of Attachment *)---------------------------------------------------------------------------------------------------to attachFilesDialog()	activate --To bring pop-up window to front	set newAttachment to choose file with prompt "" default location (path to desktop folder) with multiple selections allowed		if previously_attahced is equal to 0 then		set theAttachment to newAttachment	else		set theAttachment to (theAttachment &amp; newAttachment)	end ifend attachFilesDialog---------------------------------------------------------------------------------------------------(* Choose recipient *)---------------------------------------------------------------------------------------------------to chooseRecipient()	set listName to {¬		"Olivia", ¬		"Olivia", ¬		"Olivia", ¬		"Dad ", ¬		"Mum", ¬		"Myself", ¬		"Others"} as list		set listType to {¬		"Email	", ¬		"iMessage	", ¬		"Facebook", ¬		"Email	", ¬		"Email	", ¬		"Email	", ¬		"Email	"} as list		set listAddress to {¬		"tolivia6@gmail.com", ¬		"tolivia6@gmail.com", ¬		"olivia.ting.942@facebook.com", ¬		"lucaskpting@hotmail.com", ¬		"ivyc2323@gmail.com", ¬		"szesamltss@gmail.com", ¬		""} as list		set divider to "		|     "	set combinedDetails to {¬		(item 1 of listName) &amp; divider &amp; ¬		(item 1 of listType) &amp; divider &amp; ¬		(item 1 of listAddress)}	repeat with x from 2 to (count of listName)		set combinedDetails to (combinedDetails &amp; {(item x of listName) &amp; divider &amp; (item x of listType) &amp; divider &amp; (item x of listAddress)})	end repeat		(* Choose from list *)	activate	set selectedRecipient to choose from list combinedDetails ¬		with title "Choose Recipient" cancel button name "Cancel" OK button name "Send" default items {item 1 of combinedDetails} with multiple selections allowed	--with prompt ""		(* Find number of the item selected *)	if (selectedRecipient is not false) then		set selectedNumber to {my list_position(item 1 of selectedRecipient, combinedDetails)}		--	set selectedName to {item (item 1 of selectedNumber) of listName}		--	set selectedType to {item (item 1 of selectedNumber) of listType}		--	set selectedAddress to {item (item 1 of selectedNumber) of listAddress}				repeat with x from 2 to (count of selectedRecipient)			set selectedNumber to (selectedNumber &amp; {my list_position(item x of selectedRecipient, combinedDetails)})			--		set selectedName to (selectedName &amp; {item (item x of selectedNumber) of listName})			--		set selectedType to (selectedType &amp; {item (item x of selectedNumber) of listType})			--		set selectedAddress to (selectedAddress &amp; {item (item x of selectedNumber) of listAddress})		end repeat	else		error number -128	end if		(* Recipient *)	set numberOfAddress to ""	repeat with listItem in selectedNumber		if (item listItem of listType contains "iMessage") and (item listItem of listAddress contains "tolivia6@gmail.com") then			iMessage()		else			if numberOfAddress = "" then				set recipientAddress to {item listItem of listAddress}				set numberOfAddress to "more than one email"			else				set recipientAddress to (recipientAddress &amp; {item listItem of listAddress})			end if		end if	end repeat		repeat with listItem in selectedNumber		if (item listItem of listType contains "Email") then			set recipientAddress to literalList from recipientAddress			email()			exit repeat		end if	end repeatend chooseRecipient---------------------------------------------------------------------------------------------------(* Find Position of item in List *)---------------------------------------------------------------------------------------------------on list_position(this_item, this_list)	repeat with i from 1 to the count of this_list		if item i of this_list is this_item then return i	end repeat	return 0end list_position---------------------------------------------------------------------------------------------------(* Covert List to String *)---------------------------------------------------------------------------------------------------on literalList from someList	if class of someList is not list then		error "'literalList' requires a list" number -1703	else		set q to "" --to begin with \ replace with "\""		set outList to {""} --to begin with { replace with {"{"}		set listLength to length of someList		repeat with i from 1 to listLength			set thisItem to item i of someList			set itemClass to class of thisItem			if itemClass is string then				set end of outList to q &amp; thisItem &amp; q			else if itemClass is alias then				set end of outList to "alias " &amp; q &amp; (thisItem as string) &amp; q			else if itemClass is list then				set end of outList to literalList from thisItem			else				set end of outList to (thisItem as string)			end if			if (i &lt; listLength) then set the end of outList to ", "		end repeat		set end of outList to "" --to begin with } replace with "}"		set oT to AppleScript's text item delimiters		set AppleScript's text item delimiters to ""		set litList to outList as string		set AppleScript's text item delimiters to oT		return litList	end ifend literalList---------------------------------------------------------------------------------------------------(* Close all window except compose New Message window *)---------------------------------------------------------------------------------------------------to closeWindows()	(*		tell application "System Events"			set visible of process "Mail" to false		end tell				if ((count of windows) = 1) then			close window 1		end if		*)	tell application "Mail"		if the (count of windows) is not 0 then			set every_window_name to name of every window						repeat with x from 1 to (count of windows)				if (item x of every_window_name) does not contain "New Message" then					close window (item x of every_window_name)				end if			end repeat		end if	end tellend closeWindows---------------------------------------------------------------------------------------------------(* Erase all mail in Drafts and Thrash *)---------------------------------------------------------------------------------------------------to deleteDrafts()	tell application "Mail"		set mailboxDrafts to mailbox "Drafts (Gmail)"		if ((count of every message of mailboxDrafts) &gt; 0) then			delete every message of mailboxDrafts			--Mailbox behaviour must be set to "Move deleted messages to the Trash mailbox", else delete messages in trash mailbox won't work		end if		delete messages in trash mailbox	end tellend deleteDrafts---------------------------------------------------------------------------------------------------(* Email *)---------------------------------------------------------------------------------------------------to email()	try		closeWindows()		deleteDrafts()	end try		set theSubject to "New Message"		if theMessage is not equal to "" and (count of theAttachment) &gt; 0 then		set theMessage to the theMessage &amp; return &amp; return	end if		try		if App_Status("Quit Mail If Inactive") is false then do shell script "open " &amp; quoted form of "/Users/Lawrence/Library/Services/Quit Mail If Inactive.app"	end try		tell application "Mail"		--Create the message		set email_Message to make new outgoing message with properties {subject:theSubject, content:theMessage, visible:true}				--Set a recipient		tell email_Message			make new to recipient with properties {address:recipientAddress}						--Attachments			if attachedFileList is not equal to "" then				set x to 1				repeat (count of theAttachment) times					make new attachment with properties {file name:(item x of theAttachment) as alias}					set x to (x + 1)				end repeat			end if		end tell				--Send the Message		(*tell email_Message to send*)				--Exit when there is no activity				(*	repeat --infinite loop		if ((background activity count) = 0) then			quit			exit repeat		end if	end repeat	*)		activate	end tellend email---------------------------------------------------------------------------------------------------(* Messages *)---------------------------------------------------------------------------------------------------to iMessage()	tell application "Messages"		activate		--get services		--get name of services		--get buddies		--get name of buddies				--if theMessage is not equal to dialogBoxDefaultText then --IF answer is not blank				set theBuddy to buddy "tolivia6@gmail.com" of service "E:szesamltss@gmail.com"				send theMessage to theBuddy		--end if				if (count of theAttachment) is greater than 0 then --IF "Attach Files" button is pressed			repeat with x from 1 to (count of theAttachment)				send item x of theAttachment to theBuddy			end repeat		end if	end tellend iMessage-----------------------------------------------------------------------------------------------------(*Application Status*)-----------------------------------------------------------------------------------------------------on App_Status(theApp)	script o		tell application "System Events" to set currentProcesses to get the name of every process				repeat with x from 1 to count of currentProcesses			if item x of currentProcesses is theApp then				return true				exit repeat			else if x is (count of currentProcesses) then				return false			end if		end repeat	end script	tell o to runend App_Status---------------------------------------------------------------------------------------------------(* Kill Application / Process *)---------------------------------------------------------------------------------------------------on killApp(badapp)	script o		property pNum : {}				do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"		set my pNum to result		try			do shell script "kill -9 " &amp; my pNum		end try	end script	tell o to runend killApp</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>Disabled</key>
+				<false/>
+				<key>InputUUID</key>
+				<string>3D3F07C0-6295-4711-8FF0-F289944B4A7D</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>999F1758-4D8F-431B-A08D-E167C7C175AA</string>
+				<key>UUID</key>
+				<string>651CEF19-2A4D-4B02-B06B-EA018D31952C</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>353.000000:1053.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run {input, parameters}	killApp("WorkflowServiceRunner")end runon killApp(badapp)	do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"	set pNum to result	try		do shell script "kill -9 " &amp; pNum	end tryend killApp</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>2DB4F4D8-FC8E-4EFD-B26F-09FA1E68C8FF</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>90923E37-9E2F-4EE0-8B11-A408ACE8A743</string>
+				<key>UUID</key>
+				<string>3B684A18-AFB6-435B-A18E-15E4D175FBBD</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>353.000000:417.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>--set currentVolume to output volume of (get volume settings)--set volume output volume 0if application "Mail" is running then	tell application "Mail"		activate		tell application "System Events"			try				keystroke "3" using {command down}			end try			try				tell process "Mail" to click menu item "Select All" of menu 1 of menu bar item "Edit" of menu bar 1			end try		end tell				if ((count of (get selection)) &gt; 0) then			set status to "Process Done"						tell application "System Events"				try					tell process "Mail" to click menu item "Delete" of menu 1 of menu bar item "Edit" of menu bar 1				end try				try					tell process "Mail" to click menu item "Erase Deleted Items" of menu 1 of menu bar item "Mailbox" of menu bar 1				on error					set status to "Process Error"				end try								if status is equal to "Process Done" then					try						keystroke return					end try				end if							end tell					end if				if ((count of windows) &gt; 1) then			tell application "Mail" to close window 1		end if			end tellend if--set volume output volume currentVolume</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>Disabled</key>
+				<true/>
+				<key>InputUUID</key>
+				<string>802B83ED-7621-4E30-BD91-065ED8751E5E</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>793B9DD5-7C46-49B7-A485-6F4AA80E86CC</string>
+				<key>UUID</key>
+				<string>1ADDF0DC-DEA0-4363-A38B-4F0B7594A367</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<false/>
+				<key>location</key>
+				<string>353.000000:104.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run {input, parameters}	if application "Mail" is running then				tell application "System Events"						tell process "Mail" to click menu item "New Message" of menu 1 of menu bar item "Window" of menu bar 1						tell application "Mail" to close window 2					end tell	end if	(*	if application "Mail" is running then		tell application "System Events"			tell process "Mail"				--properties of windows								if ((count of windows) &gt; 1) then					click menu item "Inbox" of menu 1 of menu bar item "Window" of menu bar 1										if name of front window is "Inbox" then						tell application "Mail"							activate							close window 1						end tell											end if				end if			end tell		end tell	end if	*)	--return inputend run</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>Disabled</key>
+				<true/>
+				<key>InputUUID</key>
+				<string>EE97D467-E88E-4B2D-9BEF-11E5C823C9E5</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>E2585D1D-BF82-43C7-A9D1-81918D7707DA</string>
+				<key>UUID</key>
+				<string>D20E78D9-30A6-48CC-B732-665609CF252D</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<false/>
+				<key>location</key>
+				<string>353.000000:62.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<false/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict>
+		<key>3A06F816-CAB8-4407-9E0A-9CF97CBDDDBC</key>
+		<dict>
+			<key>from</key>
+			<string>651CEF19-2A4D-4B02-B06B-EA018D31952C - 651CEF19-2A4D-4B02-B06B-EA018D31952C</string>
+			<key>to</key>
+			<string>3B684A18-AFB6-435B-A18E-15E4D175FBBD - 3B684A18-AFB6-435B-A18E-15E4D175FBBD</string>
+		</dict>
+		<key>BF520EBF-D57F-422C-82F3-1A4B98F2AB11</key>
+		<dict>
+			<key>from</key>
+			<string>CF70041B-7377-4138-A894-05420FE643A2 - CF70041B-7377-4138-A894-05420FE643A2</string>
+			<key>to</key>
+			<string>651CEF19-2A4D-4B02-B06B-EA018D31952C - 651CEF19-2A4D-4B02-B06B-EA018D31952C</string>
+		</dict>
+		<key>C2A378FE-73E3-4EDC-8652-48FCD8382208</key>
+		<dict>
+			<key>from</key>
+			<string>1ADDF0DC-DEA0-4363-A38B-4F0B7594A367 - 1ADDF0DC-DEA0-4363-A38B-4F0B7594A367</string>
+			<key>to</key>
+			<string>D20E78D9-30A6-48CC-B732-665609CF252D - D20E78D9-30A6-48CC-B732-665609CF252D</string>
+		</dict>
+		<key>C3A76C77-393E-4331-A629-033B7CA605C9</key>
+		<dict>
+			<key>from</key>
+			<string>3B684A18-AFB6-435B-A18E-15E4D175FBBD - 3B684A18-AFB6-435B-A18E-15E4D175FBBD</string>
+			<key>to</key>
+			<string>1ADDF0DC-DEA0-4363-A38B-4F0B7594A367 - 1ADDF0DC-DEA0-4363-A38B-4F0B7594A367</string>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<array>
+		<dict>
+			<key>UUID</key>
+			<string>6F240CA2-CB05-4281-8B2D-32638A905B04</string>
+			<key>identifier</key>
+			<string>com.apple.Automator.Variable.Storage</string>
+			<key>name</key>
+			<string>file</string>
+		</dict>
+	</array>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>

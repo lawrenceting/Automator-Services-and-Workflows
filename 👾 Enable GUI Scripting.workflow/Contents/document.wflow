@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>381</string>
+	<key>AMApplicationVersion</key>
+	<string>2.4</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>property theAlphaList : {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"} --property theApp : ""global AlphaPositionglobal theAppListglobal rowsCounton run	activate --To bring pop-up window to front	set theApp to text returned of (display dialog "Application Name:" default answer theApp)	if theApp does not contain ".app" then set theApp to theApp &amp; ".app"		do shell script "/usr/bin/open /System/Library/PreferencePanes/Security.prefPane"		tell application "System Events" to tell window "Security &amp; Privacy" of process "System Preferences"				repeat until exists		end repeat				tell tab group 1			repeat until exists			end repeat						tell radio button "Privacy"				repeat until exists				end repeat				click			end tell						tell table 1 of scroll area 1				repeat until (exists) is true				end repeat								repeat with x from 1 to (rows count)					tell row x						repeat until (exists) is true						end repeat						if (value of static text 1 of UI element 1) is "Accessibility" then							repeat until (exists) is true							end repeat							select							exit repeat						end if					end tell				end repeat							end tell		end tell				if title of checkbox 1 is not "Click the lock to prevent further changes." then			tell button "Click the lock to make changes."				repeat until exists				end repeat				click			end tell		end if				tell checkbox 1			repeat until exists			end repeat			repeat until title is "Click the lock to prevent further changes."			end repeat		end tell	end tell	------------------------------------------------------------------------------------------------------------	set theAppList to {}	set theAlphaNearest to theAlphaList's contents	set AlphaPosition to getAlphaPosition(theApp, 1) --char 1		tell application "System Events" to set rowsCount to count of row of table 1 of scroll area 1 of group 1 of tab group 1 of window "Security &amp; Privacy" of process "System Preferences" --row count		repeat with x from 1 to rowsCount		set theAppList's end to "" --create application list	end repeat	------------------------------------------------------------------------------------------------------------	set thePosition to (rowsCount * AlphaPosition / (count of theAlphaList)) div 1	set currentApp to getAppName(thePosition)	set currentAlpha to item 1 of currentApp	set currentAlphaPosition to getAlphaPosition(currentApp, 1)	set item thePosition of theAppList to currentApp	set item currentAlphaPosition of theAlphaNearest to thePosition		if (IF_SameApp(currentApp, thePosition) is true) or (IF_SameLetter(currentAlphaPosition, currentApp, thePosition, currentAlpha) is true) then		eventLog(currentAlphaPosition, currentApp, thePosition, currentAlpha, theAlphaNearest)		error number -128	end if	eventLog(currentAlphaPosition, currentApp, thePosition, currentAlpha, theAlphaNearest)	------------------------------------------------------------------------------------------------------------		repeat with z from 1 to rowsCount				if (z is 1) and (AlphaPosition &gt; currentAlphaPosition) then set thePosition to rowsCount --last number 		if (z is 1) and (AlphaPosition &lt; currentAlphaPosition) then set thePosition to 1 --first number 				if z is not 1 then --find nearest number 			repeat with x from AlphaPosition to (count of theAlphaList)				if class of (item x of theAlphaNearest) is integer then					set lastNum to item x of theAlphaNearest					exit repeat				end if			end repeat						set x to AlphaPosition			repeat x times				if class of (item x of theAlphaNearest) is integer then					set BeginNum to item x of theAlphaNearest					exit repeat				end if				set x to x - 1			end repeat						set thePosition to ((lastNum + BeginNum) / 2) div 1			log {BeginNum, thePosition, lastNum}		end if				set currentApp to getAppName(thePosition)		set currentAlpha to item 1 of currentApp		set currentAlphaPosition to getAlphaPosition(currentApp, 1)		set item thePosition of theAppList to currentApp		set item currentAlphaPosition of theAlphaNearest to thePosition				if (IF_SameApp(currentApp, thePosition) is true) or (IF_SameLetter(currentAlphaPosition, currentApp, thePosition, currentAlpha) is true) then			exit repeat		end if		eventLog(currentAlphaPosition, currentApp, thePosition, currentAlpha, theAlphaNearest)	end repeat	eventLog(currentAlphaPosition, currentApp, thePosition, currentAlpha, theAlphaNearest)end run------------------------------------------------------------------------------------------------------------on eventLog(currentAlphaPosition, currentApp, thePosition, currentAlpha, theAlphaNearest)	log {currentAlphaPosition, currentApp, thePosition, currentAlpha}	log theAlphaList	log theAlphaNearest	log theAppListend eventLog------------------------------------------------------------------------------------------------------------on getAlphaPosition(appName, itemNum)	repeat with x from 1 to count of theAlphaList		if item itemNum of appName is item x of theAlphaList then return x	end repeat	return 0end getAlphaPosition------------------------------------------------------------------------------------------------------------on getAppName(thePosition)	tell application "System Events" to value of static text 1 of UI element 1 of row thePosition of table 1 of scroll area 1 of group 1 of tab group 1 of window "Security &amp; Privacy" of process "System Preferences"end getAppName------------------------------------------------------------------------------------------------------------on IF_SameApp(currentApp, thePosition)	if currentApp is theApp then		tell application "System Events" to tell scroll area 1 of group 1 of tab group 1 of window "Security &amp; Privacy" of process "System Preferences"						set value of value indicator 1 of scroll bar 1 to thePosition / rowsCount						tell checkbox 1 of UI element 1 of row thePosition of table 1				if value is 1 then click				repeat until value is 0				end repeat				if value is 0 then click			end tell		end tell		activate		display dialog "Done!" giving up after 1		return true	end if	return falseend IF_SameApp------------------------------------------------------------------------------------------------------------on IF_SameLetter(currentAlphaPosition, currentApp, thePosition, currentAlpha)		set problemSolved to false		if (currentAlphaPosition = AlphaPosition) then				if getAlphaPosition(theApp, 2) &gt; getAlphaPosition(currentApp, 2) then set theSearch to "+"		if getAlphaPosition(theApp, 2) &lt; getAlphaPosition(currentApp, 2) then set theSearch to "-"		if getAlphaPosition(theApp, 2) = getAlphaPosition(currentApp, 2) then set theSearch to "="				repeat while (problemSolved is false)			set x to thePosition			set currentAlpha to item 1 of theApp						repeat while (currentAlpha is item 1 of theApp)				if (theSearch is "+") or (theSearch is "=") then set x to x + 1				if (theSearch is "-") then set x to x - 1				if (theSearch is "=") and (item 2 of currentApp is not item 2 of theApp) then exit repeat								set currentApp to getAppName(x)				set currentAlpha to item 1 of currentApp				set item x of theAppList to currentApp								if IF_SameApp(currentApp, x) is true then					set problemSolved to true					exit repeat				end if			end repeat						set theSearch to "-"		end repeat	end if		return problemSolved	end IF_SameLetter</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>5A6C0F0B-9668-4042-BD38-A68D47E6FF01</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>14B11DEA-E4D6-4F6B-9FD5-72BCFF87E8D6</string>
+				<key>UUID</key>
+				<string>EAAC4650-1E9C-4916-9F8C-05267FFD571F</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:646.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run --{input, parameters}	killApp("WorkflowServiceRunner")end runon killApp(badapp)	do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"	set pNum to result	try		do shell script "kill -9 " &amp; pNum	end tryend killApp</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>B19F5F21-432A-486C-8692-8914F035A53D</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>FF547EA5-D275-4CDD-A719-011BEEEEF35A</string>
+				<key>UUID</key>
+				<string>BFB63D81-0B73-43AB-91EE-61FD5E355CA4</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:333.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict>
+		<key>499F6772-EC46-40A2-9E90-95EDB39A9BE9</key>
+		<dict>
+			<key>from</key>
+			<string>EAAC4650-1E9C-4916-9F8C-05267FFD571F - EAAC4650-1E9C-4916-9F8C-05267FFD571F</string>
+			<key>to</key>
+			<string>BFB63D81-0B73-43AB-91EE-61FD5E355CA4 - BFB63D81-0B73-43AB-91EE-61FD5E355CA4</string>
+		</dict>
+	</dict>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.finder</string>
+		<key>serviceApplicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>

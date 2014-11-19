@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>381</string>
+	<key>AMApplicationVersion</key>
+	<string>2.4</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>-- 08/02/2014: Updated to work with Mavericks-- 15/06/2014: Warn if filename contains "/"-- 06/08/2014: Fixed orientation &amp; page order-- 20/09/2014: Force show more printing options-- https://github.com/lawrencetingproperty button_1 : "QUIT"property button_2 : "Automate"property button_3 : "Custom"global every_window_nameglobal front_window_nameglobal count_of_windowsglobal currentNumberWindowsglobal filenameon run --{input, parameters}	set every_window_name to {}	set front_window_name to ""	set count_of_windows to 0	set currentNumberWindows to 0		set buttonReturned to button_3	set counter to 0	set runOnce_1 to false	set runOnce_2 to false	set theScale to 100 as string		try		tell application "Preview" to set filename to name of document of window 1				if filename contains "/" then			activate			display dialog "Filename contains \"/\", which may cause a problem." buttons {"Cancel", "Continue"} default button 2		end if	on error error_message number error_number		error_alert(error_message, error_number, "No opened windows.")	end try		repeat while (counter is not (5 + 1) and count_of_windows is not 16)				set aScript to "tell application \"Preview\" to print the front document with print dialog"		do shell script "osascript -e " &amp; quoted form of aScript &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		wait_for_print_pane() --Wait for the Print pane				if runOnce_1 is false then			click_radio_button("Group Number:", 1, "Button Number:", 2) --Scale to Fit			click_radio_button("Group Number:", 2, "Button Number:", 2) --1: Print Entire Image, 2: Fill Entire Paper			tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1				set theScale to value of text field 1			end tell			set theScale to (FindAndReplaceText of theScale from " %" to "") as integer			set theScale to theScale * 1.1			set runOnce_1 to true		end if				click_radio_button("Group Number:", 3, "Button Number:", 1) --Orientation = Horizontal			click_radio_button("Group Number:", 1, "Button Number:", 1) --Scale			change_scale(theScale as string) --Change Scale				click_pop_up_button("Description:", "PDE", "Menu Item:", "Layout")		click_pop_up_button("Description:", "Pages per Sheet", "Menu Item:", "2")		click_radio_button("Group Number:", 1, "Button Number:", 1) --change slide print order				record_current_windows_num()		click_menu_button("Button Name:", "PDF", "Menu Item:", "Open PDF in Preview")		wait_for_windows_count_to_increase()		menu_click({"Preview", "View", "Zoom Out"})				if buttonReturned is button_3 then			activate --To bring pop-up window to front			set dialogBox to display dialog "Scale:" with title "2 Pages in 1" default answer theScale buttons {button_1, button_2, button_3} default button 3			set buttonReturned to (button returned of dialogBox)			set theScale to (text returned of dialogBox) as integer		end if				if buttonReturned is button_1 then exit repeat				if buttonReturned is button_2 then			if runOnce_2 is false then				set beginningScale to contents of theScale				set runOnce_2 to true			end if			set theScale to theScale + 1			set counter to theScale - beginningScale		end if				if buttonReturned is button_3 then			getWindows()			repeat with x from 1 to count_of_windows				if item x of every_window_name contains (filename &amp; ".pdf") then close window x of application "Preview"			end repeat		end if				try			menu_click({"Preview", "Window", original_window_name()})		end try	end repeat		getWindows()	repeat with x from 1 to count_of_windows		if item x of every_window_name contains (filename &amp; ".pdf") then			tell window original_window_name() of application "Preview" to set miniaturized to true			exit repeat		end if	end repeat		activate application "Preview"end run---------------------------------------------------------------------------------------------------------------------on change_scale(num)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		set focused of text field 1 to true		set value of text field 1 to num	end tellend change_scale---------------------------------------------------------------------------------------------------------------------on click_menu_button("Button Name:", b_name, "Menu Item:", menuItem)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell menu button b_name			click			click menu item menuItem of menu 1		end tell	end tellend click_menu_button---------------------------------------------------------------------------------------------------------------------on click_pop_up_button("Description:", theDescription, "Menu Item:", menuItem)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell (first pop up button whose description is theDescription)			click			click menu item menuItem of menu 1		end tell	end tell -- sheetend click_pop_up_button---------------------------------------------------------------------------------------------------------------------on click_radio_button("Group Number:", grp_num, "Button Number:", button_num)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell radio group grp_num to tell radio button button_num --			repeat while value is 0				click			end repeat		end tell -- radio group…	end tellend click_radio_button---------------------------------------------------------------------------------------------------------------------on error_alert(error_message, error_number, dialog_message)	if error_message is "Preview got an error: Can’t get window 1. Invalid index." and error_number is -1719 then display dialog dialog_message giving up after 1		error number -128end error_alert---------------------------------------------------------------------------------------------------------------------on FindAndReplaceText of t from s to r	set d to text item delimiters	set text item delimiters to s	set t to t's text items	set text item delimiters to r	tell t to set t to beginning &amp; ({""} &amp; rest)	set text item delimiters to d	tend FindAndReplaceText---------------------------------------------------------------------------------------------------------------------on getWindows()	tell application "Preview"		try			set every_window_name to name of every window		end try		try			set front_window_name to name of window 1		end try		try			set count_of_windows to count of windows		end try	end tellend getWindows---------------------------------------------------------------------------------------------------------------------on menu_click(mList)	-- `menu_click`, by Jacob Rus, September 2006	-- 	-- Accepts a list of form: `{"Finder", "View", "Arrange By", "Date"}`	-- Execute the specified menu item.  In this case, assuming the Finder 	-- is the active application, arranging the frontmost folder by date.	local appName, topMenu, r		-- Validate our input	if mList's length &lt; 3 then error "Menu list is not long enough"		-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)		-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r		-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length &gt; 1 then set r to (items 2 through (mList's length) of mList)		-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recurse---------------------------------------------------------------------------------------------------------------------on record_current_windows_num()	getWindows()	set currentNumberWindows to contents of count_of_windowsend record_current_windows_num---------------------------------------------------------------------------------------------------------------------on original_window_name()	getWindows()	repeat with x from 1 to count_of_windows		if item x of every_window_name does not contain (filename &amp; ".pdf") then			return (item x of every_window_name) as string		end if	end repeatend original_window_name---------------------------------------------------------------------------------------------------------------------on wait_for_print_pane() --Wait for the Print pane	tell application "System Events" to tell process "Preview"		tell sheet 1 of window 1						repeat until exists			end repeat						tell button "Show Details" --force show advanced printing options				repeat while exists					click				end repeat			end tell					end tell	end tellend wait_for_print_pane---------------------------------------------------------------------------------------------------------------------on wait_for_windows_count_to_increase()	repeat while (count_of_windows &lt; currentNumberWindows or count_of_windows = 0)		getWindows()	end repeat --wait_for_windows_count_to_increase		repeat while (every_window_name as string) does not contain (filename &amp; ".pdf")		getWindows()	end repeat		repeat while (front_window_name as string) does not contain (filename &amp; ".pdf")		getWindows()	end repeatend wait_for_windows_count_to_increase</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>Disabled</key>
+				<false/>
+				<key>InputUUID</key>
+				<string>5DDBF785-FC66-4B4E-B0FA-46523C4749A8</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>374C8703-BA6F-4E72-A819-B50988B5FA4A</string>
+				<key>UUID</key>
+				<string>8DCD079D-7A5D-4ADA-8818-E1D98643D683</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:897.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run --{input, parameters}	killApp("WorkflowServiceRunner")end runon killApp(badapp)	do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"	set pNum to result	try		do shell script "kill -9 " &amp; pNum	end tryend killApp</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>269F7BD9-E355-48A7-85C1-891AD7ECB52B</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>88845A30-D8B9-41D0-A7EF-550BA5A61373</string>
+				<key>UUID</key>
+				<string>8EF3735D-FDE0-4E62-8204-7A7A5C6D59BF</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:333.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict>
+		<key>8B14EECE-4656-4B11-B0D8-02F5BBD28343</key>
+		<dict>
+			<key>from</key>
+			<string>8DCD079D-7A5D-4ADA-8818-E1D98643D683 - 8DCD079D-7A5D-4ADA-8818-E1D98643D683</string>
+			<key>to</key>
+			<string>8EF3735D-FDE0-4E62-8204-7A7A5C6D59BF - 8EF3735D-FDE0-4E62-8204-7A7A5C6D59BF</string>
+		</dict>
+	</dict>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.Preview</string>
+		<key>serviceApplicationPath</key>
+		<string>/Applications/Preview.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>

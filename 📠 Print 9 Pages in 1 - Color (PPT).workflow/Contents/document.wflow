@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>381</string>
+	<key>AMApplicationVersion</key>
+	<string>2.4</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>-- Last Updated to work with Mavericks on 6 August 2014-- 20/09/2014: Force show more printing options-- https://github.com/lawrencetingglobal every_window_nameglobal front_window_nameglobal count_of_windowsglobal currentNumberWindowsglobal filenameglobal revisionson run --{input, parameters}	set every_window_name to {}	set front_window_name to ""	set count_of_windows to 0	set currentNumberWindows to 0	set revisions to ""		tell application "Microsoft PowerPoint"		activate		(*		tell active presentation			repeat with a from 1 to count slides				tell slide a					repeat with b from 1 to count shape						try							tell font of text range of text frame of shape b								set font color to {0, 0, 0}							end tell						end try					end repeat				end tell			end repeat		end tell			*)		set filename to (name of active presentation) &amp; ".pdf"		set fit to page of print options of active presentation to true		set frame slides of print options of active presentation to true		set number of copies of print options of active presentation to 1		set output type of print options of active presentation to print slides		set print color type of print options of active presentation to print color --black and white	end tell		set aScript to "tell application \"Microsoft PowerPoint\" to print out active presentation"	do shell script "osascript -e " &amp; quoted form of aScript &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		tell application "System Events" to tell application process "PowerPoint"				repeat until window "Print" exists		end repeat				tell window "Print"			tell menu button "PDF"				click				click menu item "Open PDF in Preview" of menu 1			end tell		end tell	end tell		tell application "Microsoft PowerPoint" to undo active presentation		record_current_windows_num()		----------------------------------------------------------------------------------------------------------	-- Print 9 in 1	----------------------------------------------------------------------------------------------------------	wait_for_windows_num_to_increase()		script click_print_wait_print_sheet_click_scale				set aScript to "tell application \"Preview\" to print the front document with print dialog"		do shell script "osascript -e " &amp; quoted form of aScript &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"				wait_for_print_pane() --Wait for the Print pane			click_radio_button("Group Number:", 1, "Button Number:", 1) --Scale				end script		run script click_print_wait_print_sheet_click_scale		change_scale("102") --Change Scale	click_radio_button("Group Number:", 3, "Button Number:", 2) --swicth to landscape mode		click_pop_up_button("Description:", "PDE", "Menu Item:", "Layout")	click_pop_up_button("Description:", "Pages per Sheet", "Menu Item:", "9")	click_radio_button("Group Number:", 1, "Button Number:", 1) --change slide print order		record_current_windows_num()	click_menu_button("Button Name:", "PDF", "Menu Item:", "Open PDF in Preview")	wait_for_windows_num_to_increase()		----------------------------------------------------------------------------------------------------------	-- Increase Scale	----------------------------------------------------------------------------------------------------------	repeat with x from 1 to count_of_windows		if (item x of every_window_name contains filename &amp; " (") and ¬			(item x of every_window_name contains "page") and ¬			(item x of every_window_name contains ")") ¬				then tell application "Preview" to close window x	end repeat		run script click_print_wait_print_sheet_click_scale		change_scale("104") --Change Scale	click_radio_button("Group Number:", 3, "Button Number:", 2) --swicth to landscape mode		record_current_windows_num()	click_menu_button("Button Name:", "PDF", "Menu Item:", "Open PDF in Preview")	wait_for_windows_num_to_increase()		----------------------------------------------------------------------------------------------------------	-- Open Save Window	----------------------------------------------------------------------------------------------------------		repeat with x from 1 to count_of_windows		if (item x of every_window_name contains filename &amp; ".pdf (") and ¬			(item x of every_window_name contains "page") and ¬			(item x of every_window_name contains ")") ¬				then tell application "Preview" to close window x	end repeat		try		with timeout of (0.6) seconds			tell application "Preview" to save front document		end timeout	end try		----------------------------------------------------------------------------------------------------------	-- Select Compression 	----------------------------------------------------------------------------------------------------------	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell group 1			tell pop up button 2				click				click menu item "Reduce to 150 dpi average quality - STANDARD" of menu 1			end tell		end tell	end tell		--run script click_print_wait_print_sheet_click_scale	--click_menu_button("Button Name:", "PDF", "Menu Item:", "Compress PDF")end run---------------------------------------------------------------------------------------------------------------------on change_scale(num)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		set focused of text field 1 to true		set value of text field 1 to num	end tellend change_scale---------------------------------------------------------------------------------------------------------------------on click_menu_button("Button Name:", b_name, "Menu Item:", menuItem)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell menu button b_name			click			click menu item menuItem of menu 1		end tell	end tellend click_menu_button---------------------------------------------------------------------------------------------------------------------on click_pop_up_button("Description:", theDescription, "Menu Item:", menuItem)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell (first pop up button whose description is theDescription)			click			click menu item menuItem of menu 1		end tell	end tell -- sheetend click_pop_up_button---------------------------------------------------------------------------------------------------------------------on click_radio_button("Group Number:", grp_num, "Button Number:", button_num)	tell application "System Events" to tell process "Preview" to tell sheet 1 of window 1		tell radio group grp_num to tell radio button button_num --			repeat while value is 0				click			end repeat		end tell -- radio group…	end tellend click_radio_button---------------------------------------------------------------------------------------------------------------------on getWindows()	tell application "Preview"		try			set every_window_name to name of every window		end try		try			set front_window_name to name of window 1		end try		try			set count_of_windows to count of windows		end try	end tellend getWindows---------------------------------------------------------------------------------------------------------------------on record_current_windows_num()	getWindows()	set currentNumberWindows to contents of count_of_windowsend record_current_windows_num---------------------------------------------------------------------------------------------------------------------on wait_for_print_pane() --Wait for the Print pane	tell application "System Events" to tell process "Preview"		tell sheet 1 of window 1						repeat until exists			end repeat						tell button "Show Details" --force show advanced printing options				repeat while exists					click				end repeat			end tell					end tell	end tellend wait_for_print_pane---------------------------------------------------------------------------------------------------------------------on wait_for_windows_num_to_increase()	repeat while (count_of_windows &lt; currentNumberWindows or count_of_windows = 0)		getWindows()	end repeat --wait_for_windows_num_to_increase		repeat while (every_window_name as string) does not contain (filename &amp; revisions)		getWindows()	end repeat		repeat while (front_window_name as string) does not contain (filename &amp; revisions)		getWindows()	end repeat		set revisions to revisions &amp; ".pdf"end wait_for_windows_num_to_increase</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>A74FDD9B-D948-4D61-B50A-CA243C999854</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>1F6B120A-780D-40F7-A250-3133B38A0DC5</string>
+				<key>UUID</key>
+				<string>92C6A84E-FAE1-40A9-BDDF-6843F1D13033</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:646.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run --{input, parameters}	killApp("WorkflowServiceRunner")end runon killApp(badapp)	do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"	set pNum to result	try		do shell script "kill -9 " &amp; pNum	end tryend killApp</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>518D0CB7-7722-495C-96D4-F746EA76F60A</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>85853E12-91D5-4534-A071-22DFAD04EE1C</string>
+				<key>UUID</key>
+				<string>8022C0D5-8505-4F43-9C7F-0FB8B04720D4</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>360.500000:333.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict>
+		<key>75FD0D3A-5D3C-4307-8AE7-EA0108355ADE</key>
+		<dict>
+			<key>from</key>
+			<string>92C6A84E-FAE1-40A9-BDDF-6843F1D13033 - 92C6A84E-FAE1-40A9-BDDF-6843F1D13033</string>
+			<key>to</key>
+			<string>8022C0D5-8505-4F43-9C7F-0FB8B04720D4 - 8022C0D5-8505-4F43-9C7F-0FB8B04720D4</string>
+		</dict>
+	</dict>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.microsoft.Powerpoint</string>
+		<key>serviceApplicationPath</key>
+		<string>/Applications/Microsoft Office 2011/Microsoft PowerPoint.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>
