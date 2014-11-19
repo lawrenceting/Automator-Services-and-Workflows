@@ -559,7 +559,7 @@ end run</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>appPath</key>
-					<string>/Applications/Utilities/AppleScript Editor.app</string>
+					<string>/Applications/Utilities/Script Editor.app</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.OpenFinderItems</string>
@@ -724,40 +724,40 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>1C19B96C-8276-47AC-A1FA-070F47970882</key>
-		<dict>
-			<key>from</key>
-			<string>1D5C7D81-D748-49A1-BC2B-85804974710D - 1D5C7D81-D748-49A1-BC2B-85804974710D</string>
-			<key>to</key>
-			<string>AFAD456B-A38E-4A38-BE44-76C878987D9C - AFAD456B-A38E-4A38-BE44-76C878987D9C</string>
-		</dict>
-		<key>3CC9EC7C-E09F-4937-A18C-8657CB00AF4E</key>
-		<dict>
-			<key>from</key>
-			<string>AFAD456B-A38E-4A38-BE44-76C878987D9C - AFAD456B-A38E-4A38-BE44-76C878987D9C</string>
-			<key>to</key>
-			<string>EEB53996-83D7-4EF1-A644-40140807ED01 - EEB53996-83D7-4EF1-A644-40140807ED01</string>
-		</dict>
-		<key>72457C93-7122-4A86-B21D-4EA8C3C8E354</key>
+		<key>2D0BC57E-6B4C-47F9-B120-AA601C644CCE</key>
 		<dict>
 			<key>from</key>
 			<string>EEB53996-83D7-4EF1-A644-40140807ED01 - EEB53996-83D7-4EF1-A644-40140807ED01</string>
 			<key>to</key>
 			<string>BFC4E675-F359-4C62-954A-27D8782E95CC - BFC4E675-F359-4C62-954A-27D8782E95CC</string>
 		</dict>
-		<key>9034F2EB-23A4-41F4-8206-63A929E81A94</key>
+		<key>8ED19D4B-2978-411D-979D-A71EAF96BAB1</key>
+		<dict>
+			<key>from</key>
+			<string>AFAD456B-A38E-4A38-BE44-76C878987D9C - AFAD456B-A38E-4A38-BE44-76C878987D9C</string>
+			<key>to</key>
+			<string>EEB53996-83D7-4EF1-A644-40140807ED01 - EEB53996-83D7-4EF1-A644-40140807ED01</string>
+		</dict>
+		<key>B15F65FF-7967-45D5-B986-A2DB885FFEEA</key>
 		<dict>
 			<key>from</key>
 			<string>558418D0-7EC6-4C37-ADDB-8A0F87127AE9 - 558418D0-7EC6-4C37-ADDB-8A0F87127AE9</string>
 			<key>to</key>
 			<string>874313F3-4AEF-4939-9077-B5ACE2382516 - 874313F3-4AEF-4939-9077-B5ACE2382516</string>
 		</dict>
-		<key>90DE2695-E23E-499C-A861-12DF11CB45E1</key>
+		<key>DD9585E6-664A-4191-8B49-7BF2669E8FF2</key>
 		<dict>
 			<key>from</key>
 			<string>BFC4E675-F359-4C62-954A-27D8782E95CC - BFC4E675-F359-4C62-954A-27D8782E95CC</string>
 			<key>to</key>
 			<string>558418D0-7EC6-4C37-ADDB-8A0F87127AE9 - 558418D0-7EC6-4C37-ADDB-8A0F87127AE9</string>
+		</dict>
+		<key>E660D455-0DA0-4DEC-8C04-BC514902250F</key>
+		<dict>
+			<key>from</key>
+			<string>1D5C7D81-D748-49A1-BC2B-85804974710D - 1D5C7D81-D748-49A1-BC2B-85804974710D</string>
+			<key>to</key>
+			<string>AFAD456B-A38E-4A38-BE44-76C878987D9C - AFAD456B-A38E-4A38-BE44-76C878987D9C</string>
 		</dict>
 	</dict>
 	<key>variables</key>
