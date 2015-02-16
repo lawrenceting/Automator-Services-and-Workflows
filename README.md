@@ -59,11 +59,10 @@ Mac OS X Automator Services And Workflows
 
 Donations welcomed.
 
-<a href="//www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KDX2JRCYVJ3NN&lc=AU&item_name=GitHub Donation - Lawrence Ting&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" alt="[paypal]" /></a>
+<a href="//goo.gl/mwGUgV" target="_blank"><img src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" alt="[paypal]" /></a>
 
 ## License
 
 Automator workflows released under the [MIT License][opensource].
 
 [opensource]: http://www.opensource.org/licenses/MIT
-
