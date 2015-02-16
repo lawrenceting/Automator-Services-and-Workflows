@@ -1,6 +1,6 @@
 Mac OS X Automator Services And Workflows
 ================================
-⏏ Eject All Disks.workflow
+* ⏏ Eject All Disks.workflow
 * ❌ Delete File(s) Permanently.workflow
 * ❌ Uninstall App.workflow
 * 🌏 Download Torrent from Hash.workflow
@@ -48,13 +48,12 @@ Mac OS X Automator Services And Workflows
 * 📧 Email New Message.workflow
 * 📧 Email Selected Text.workflow
 * 🔒 Hide OR Show File(s).workflow
-
-Solve This.workflow
-
-  Open Services Folder.workflow
+* Solve This.workflow
+*   Open Services Folder.workflow
 
 ## Instructions
-Download Zip.
+Download Zip. Copy automator workflows to ~/Library/Services
 
+## License
 Free to use, copy or modify.
 
