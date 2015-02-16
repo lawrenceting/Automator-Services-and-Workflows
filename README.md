@@ -52,9 +52,7 @@ Mac OS X Automator Services And Workflows
 *   Open Services Folder.workflow
 
 ## Instructions
-[Download Zip.](//github.com/lawrenceting/Automator-Services-and-Workflows---10.10---Yosemite/archive/master.zip "Download Zip.")
-
-Download Zip. Copy automator workflows to ~/Library/Services
+[Download Zip.](//github.com/lawrenceting/Automator-Services-and-Workflows---10.10---Yosemite/archive/master.zip "Download Zip.") Copy automator workflows to ~/Library/Services
 
 ## License
 Free to use, copy or modify.
