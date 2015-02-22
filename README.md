@@ -10,6 +10,7 @@ Mac OS X Automator Services And Workflows
 * 🎥 Find Subtitles > Open in VLC.workflow
 * 🎨 Apply Effect to Images.workflow
 * 🎨 Apply Effect to PDF.workflow
+* 🎨 Get GPS Position of Image.workflow
 * 🎨 Rotate Image(s).workflow
 * 🎵 Import Files into iTunes (A).workflow
 * 🎵 Import Files into iTunes (V).workflow
@@ -48,7 +49,6 @@ Mac OS X Automator Services And Workflows
 * 📧 Email New Message.workflow
 * 📧 Email Selected Text.workflow
 * 🔒 Hide OR Show File(s).workflow
-* Solve This.workflow
 *   Open Services Folder.workflow
 
 ## Installation
