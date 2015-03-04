@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>-- this script uses the commandline too "exiftool" to extract GPS information from image fileson run {input, parameters}		tell application "iPhoto"		set photoList to selection		set thisPhoto to item 1 of photoList		set thePath to original path of thisPhoto	end tell		set theResut to do shell script "find " &amp; quoted form of thePath &amp; " -iname '*.jpg' -print -exec exiftool -GPSPosition -b {} \\;"		-- -b : Output requested metadata in binary format without tag names or descriptions.		set theResut to second paragraph of theResut		activate --To bring pop-up window to front		set button1 to "Open in Maps"	set button2 to "Open in Google Maps"	set button3 to "Quit"		set dialogBox to display dialog "GPS Position:" default answer theResut with icon 1 ¬		buttons {button1, button2, button3} ¬		default button 3		set buttonReturned to button returned of dialogBox	set theMessage to (text returned of dialogBox)		if buttonReturned is button1 then		tell application "Safari"			open location "http://maps.apple.com/?q=" &amp; theResut			repeat until application "Maps" is running			end repeat			quit		end tell		activate application "Maps"			else if buttonReturned is button2 then		set theBrowser to "Firefox"		tell application theBrowser			activate			open location "https://www.google.com/maps/search/" &amp; theResut		end tell			end if		end run</string>
+					<string>-- this script uses the commandline too "exiftool" to extract GPS information from image fileson run {input, parameters}	-- this script uses the commandline too "exiftool" to extract GPS information from image files			tell application "iPhoto"		set photoList to selection		set thisPhoto to item 1 of photoList		set thePath to original path of thisPhoto	end tell		set theResut to do shell script "find " &amp; quoted form of thePath &amp; " -exec exiftool -GPSPosition -b {} \\;"		-- -b : Output requested metadata in binary format without tag names or descriptions.		if the theResut is not "" then				activate --To bring pop-up window to front				set button1 to "Open in Maps"		set button2 to "Open in Google Maps"		set button3 to "Quit"				set dialogBox to display dialog "GPS Position:" default answer theResut with icon 1 ¬			buttons {button1, button2, button3} ¬			default button 3				set buttonReturned to button returned of dialogBox		set theMessage to (text returned of dialogBox)				if buttonReturned is button1 then			tell application "Safari"				open location "http://maps.apple.com/?q=" &amp; theResut				repeat until application "Maps" is running				end repeat				quit			end tell			activate application "Maps"					else if buttonReturned is button2 then			set theBrowser to "Firefox"			tell application theBrowser				activate				open location "https://www.google.com/maps/search/" &amp; theResut			end tell					end if			else		activate (display dialog "Unable to find GPS position." giving up after 1)	end if	end run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -105,7 +105,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>359.500000:692.000000</string>
+				<string>529.000000:316.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -204,12 +204,10 @@ end run</string>
 						<string>0</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>359.500000:938.000000</string>
+				<string>529.000000:562.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -219,7 +217,7 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>FAF956FC-6AA7-44BD-846B-90A9246CAF1E</key>
+		<key>495A4C68-5A77-4E14-B027-078491C8C939</key>
 		<dict>
 			<key>from</key>
 			<string>E6F51369-5077-439C-91F2-DAA8FB8B19AF - E6F51369-5077-439C-91F2-DAA8FB8B19AF</string>
