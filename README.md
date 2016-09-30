@@ -3,24 +3,17 @@ Mac OS X Automator Services And Workflows
 * ⏏ Eject All Disks.workflow
 * ❌ Delete File(s) Permanently.workflow
 * ❌ Uninstall App.workflow
-* 🌏 Download Torrent from Hash.workflow
-* 🌏 Kill Firefox plugin-container.workflow
 * 🌏 Open URL in Firefox.workflow
 * 🌏 Search with Google (Firefox).workflow
 * 🎥 Find Subtitles > Open in VLC.workflow
 * 🎨 Apply Effect to Images.workflow
 * 🎨 Apply Effect to PDF.workflow
-* 🎨 Get GPS Position of Image.workflow
 * 🎨 Rotate Image(s).workflow
 * 🎵 Import Files into iTunes (A).workflow
 * 🎵 Import Files into iTunes (V).workflow
-* 📷 Import Photos into Separate Albums.workflow
-* 👾 Enable GUI Scripting.workflow
 * 👾 Hide Application Icon.workflow
 * 👾 Open with AppleScript Editor.workflow
 * 👾 Open with Automator.workflow
-* 👾 Turn ON | OFF App Nap.workflow
-* 💾 CCC (Scheduled Tasks).workflow
 * 📂 MD5 Checksum.workflow
 * 📂 Rename Files.workflow
 * 📄 Compress PDF.workflow
@@ -44,17 +37,26 @@ Mac OS X Automator Services And Workflows
 * 📠 Print 2 Pages in 1 (PDF).workflow
 * 📠 Print 2 Pages in 1 (Toner Saver).workflow
 * 📠 Print 2 Pages in 1 (Word).workflow
-* 📠 Print 9 Pages in 1 - B&W (PPT).workflow
-* 📠 Print 9 Pages in 1 - Color (PPT).workflow
-* 📧 Email Files.workflow
+* 📠 Print 9 Pages in 1.workflow
 * 📧 Email New Message.workflow
 * 📧 Email Selected Text.workflow
 * 🔒 Hide OR Show File(s).workflow
 *   Open Services Folder.workflow
+* 🔗 Create SymLink.workflow
+* 📷 Import Photos into Separate Albums.workflow
+Paste and Transform Text….workflow
+Paste as Plain Text.workflow
+Transform Selected Text….workflow
 
 ## Installation
 
-[Download](//github.com/lawrenceting/Automator-Services-and-Workflows---10.11---El-Capitan/archive/master.zip) and copy automator workflows to "~/Library/Services".
+[Download](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.12-Sierra.zip) and copy automator workflows to "~/Library/Services".
+
+For older versions of Mac OS:
+* [10.9 Mavericks](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.9-Mavericks.zip)
+* [10.10 Yosemite](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.10-Yosemite.zip)
+* [10.11 El-Capitan](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.11-El-Capitan.zip)
+
 
 ## Donations
 
