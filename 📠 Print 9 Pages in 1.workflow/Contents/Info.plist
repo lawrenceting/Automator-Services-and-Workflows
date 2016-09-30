@@ -8,7 +8,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>📠 Print 9 Pages in 1 - B&amp;W (PPT)</string>
+				<string>📠 Print 9 Pages in 1</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>runWorkflowAsService</string>

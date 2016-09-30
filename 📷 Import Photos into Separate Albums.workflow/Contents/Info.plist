@@ -8,14 +8,14 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>📠 Print 9 Pages in 1 - Color (PPT)</string>
+				<string>📷 Import Photos into Separate Albums</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>runWorkflowAsService</string>
 			<key>NSRequiredContext</key>
 			<dict>
 				<key>NSApplicationIdentifier</key>
-				<string>com.microsoft.Powerpoint</string>
+				<string>com.apple.Photos</string>
 			</dict>
 		</dict>
 	</array>

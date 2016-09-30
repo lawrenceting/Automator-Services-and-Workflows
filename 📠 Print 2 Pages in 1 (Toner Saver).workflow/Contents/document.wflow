@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>381</string>
+	<string>419</string>
 	<key>AMApplicationVersion</key>
-	<string>2.4</string>
+	<string>2.6</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>-- Last Updated to work with Mavericks on 20 February 2014-- http://lawrenceting.tk/property ServicesFolder : POSIX path of (path to home folder as text) &amp; "Library/Services/"on run {input, parameters}	set aScript to "tell application \"Microsoft Word\" to print the active document with print dialog"	do shell script "osascript -e " &amp; quoted form of aScript &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		tell application "System Events" to tell process "Microsoft Word"		repeat until window "Print" exists		end repeat		tell window "Print" to click button "Cancel"	end tell		tell application "Microsoft Word"		undo clear active document		set textRange to create range active document start 0 end 0		set textRange to change end of range textRange by a story item extend type by selecting		set color index of font object of textRange to dark blue --blue	end tell		tell application "Preview" to set windows_count to count of every window		set a to "tell application \"Preview\""	set b to "repeat until ((count of every window) is greater than " &amp; windows_count &amp; ")"	set c to "end repeat"	set d to "end tell"	set e to "tell application \"Microsoft Word\" to undo active document times 1"		do shell script "osascript -e " &amp; quoted form of a &amp; " -e " &amp; quoted form of b &amp; " -e " &amp; quoted form of c &amp; " -e " &amp; quoted form of d &amp; " -e " &amp; quoted form of e &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		set thePath to ServicesFolder &amp; "📠 Print 2 Pages in 1 (Word).workflow"	do shell script "/usr/bin/automator " &amp; quoted form of thePath	(*		tell application "Preview"		repeat until ((count of every window) is greater than windows_count)		end repeat	end tell	tell application "Microsoft Word" to undo active document times 1	*)end runon menu_click(mList)	-- `menu_click`, by Jacob Rus, September 2006	-- 	-- Accepts a list of form: `{"Finder", "View", "Arrange By", "Date"}`	-- Execute the specified menu item.  In this case, assuming the Finder 	-- is the active application, arranging the frontmost folder by date.	local appName, topMenu, r		-- Validate our input	if mList's length &lt; 3 then error "Menu list is not long enough"		-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)		-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r		-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length &gt; 1 then set r to (items 2 through (mList's length) of mList)		-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recurse</string>
+					<string>-- Last Updated to work with Mavericks on 20 February 2014-- http://lawrenceting.tk/property ServicesFolder : POSIX path of (path to home folder as text) &amp; "Library/Services/"on run {input, parameters}		set ver to version of application "Microsoft Word"	if item 1 of ver is "1" and item 2 of ver is "5" then activate (display dialog "This only works with Mircrosoft Word version 14. Please quit Microsoft Word version 15." buttons {"Cancel"} default button 1)		set aScript to "tell application \"Microsoft Word\" to print the active document with print dialog"	do shell script "osascript -e " &amp; quoted form of aScript &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		tell application "System Events" to tell process "Microsoft Word"		repeat until window "Print" exists		end repeat		tell window "Print" to click button "Cancel"	end tell		tell application "Microsoft Word"		undo clear active document		set textRange to create range active document start 0 end 0		set textRange to change end of range textRange by a story item extend type by selecting		set color index of font object of textRange to dark blue --blue	end tell		tell application "Preview" to set windows_count to count of every window		set a to "tell application \"Preview\""	set b to "repeat until ((count of every window) is greater than " &amp; windows_count &amp; ")"	set c to "end repeat"	set d to "end tell"	set e to "tell application \"Microsoft Word\" to undo active document times 1"		do shell script "osascript -e " &amp; quoted form of a &amp; " -e " &amp; quoted form of b &amp; " -e " &amp; quoted form of c &amp; " -e " &amp; quoted form of d &amp; " -e " &amp; quoted form of e &amp; " &gt; /dev/null 2&gt;&amp;1 &amp;"		set thePath to ServicesFolder &amp; "📠 Print 2 Pages in 1 (Word).workflow"	do shell script "/usr/bin/automator " &amp; quoted form of thePath	(*		tell application "Preview"		repeat until ((count of every window) is greater than windows_count)		end repeat	end tell	tell application "Microsoft Word" to undo active document times 1	*)end runon menu_click(mList)	-- `menu_click`, by Jacob Rus, September 2006	-- 	-- Accepts a list of form: `{"Finder", "View", "Arrange By", "Date"}`	-- Execute the specified menu item.  In this case, assuming the Finder 	-- is the active application, arranging the frontmost folder by date.	local appName, topMenu, r		-- Validate our input	if mList's length &lt; 3 then error "Menu list is not long enough"		-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)		-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r		-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length &gt; 1 then set r to (items 2 through (mList's length) of mList)		-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recurse</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -105,9 +105,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>353.000000:856.000000</string>
+				<string>719.500000:664.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -207,9 +207,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>353.000000:333.000000</string>
+				<string>719.500000:910.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -217,7 +217,7 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>AD16C3DD-8A50-42C9-A526-2B7BA3BE975B</key>
+		<key>F9894FE8-07C6-478D-9D6A-C1E080225E72</key>
 		<dict>
 			<key>from</key>
 			<string>45A1AC81-2A6C-40D7-8F87-1A218358F5FB - 45A1AC81-2A6C-40D7-8F87-1A218358F5FB</string>

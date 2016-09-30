@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>381</string>
+	<string>419</string>
 	<key>AMApplicationVersion</key>
-	<string>2.4</string>
+	<string>2.6</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run	activate application "Preview"		menu_click({"Preview", "Edit", "Copy"})		tell application "Microsoft Word"		activate		make new document		set view type of view of active window to print view		set documentName to name of active document		set the bounds of the front window to {0, 22, 1440, 896}				tell page setup of active document			set orientation to orient landscape			set left margin to (inches to points inches 0)			set right margin to (inches to points inches 0)			set top margin to (inches to points inches 0)			set bottom margin to (inches to points inches 0)		end tell				set page fit of zoom of view of active window to page fit full page				--paste special (text object of selection) data type paste text		--toggle portrait page setup of active document	end tell		menu_click({"Word", "Edit", "Paste"})	menu_click({"Word", "Edit", "Find", "Replace..."})		tell application "System Events" to tell process "Microsoft Word"		tell window documentName						repeat until (UI element "Navigation Pane" exists)			end repeat						tell UI element "Navigation Pane" to tell group 1				tell (first combo box whose help is "Search Document")					set value to "^g"				end tell				click button "Find"			end tell						tell tab group 1				repeat until (radio button "Format Picture" exists)				end repeat								click radio button "Format Picture"								tell value indicator 1 of slider 1 of group 2					set value to 23				end tell			end tell					end tell	end tell		tell application "Microsoft Word" to print the active document with print dialogend runon menu_click(mList)	-- `menu_click`, by Jacob Rus, September 2006	-- 	-- Accepts a list of form: `{"Finder", "View", "Arrange By", "Date"}`	-- Execute the specified menu item.  In this case, assuming the Finder 	-- is the active application, arranging the frontmost folder by date.	local appName, topMenu, r		-- Validate our input	if mList's length &lt; 3 then error "Menu list is not long enough"		-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)		-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r		-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length &gt; 1 then set r to (items 2 through (mList's length) of mList)		-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recurse</string>
+					<string>-- created by Lawrence Ting (https://github.com/lawrenceting)(*-- 2016.1.11	-- resolved conflict with Office 2016*)on run	activate --To bring pop-up window to front	set buttonReturned to button returned of (display dialog "Choose page orientation:" with title "" buttons {"Portrait", "Landscape", "Quit"} default button 3)		if buttonReturned is not "Quit" then				activate application "Preview"				menu_click({"Preview", "Edit", "Copy"})				tell application ":Applications:Microsoft Office 2011:Microsoft Word.app"			activate			make new document			set view type of view of active window to print view			set documentName to name of active document			set the bounds of the front window to {0, 22, 1440, 896}						tell page setup of active document				if buttonReturned is "Landscape" then set orientation to orient landscape				set left margin to (inches to points inches 0)				set right margin to (inches to points inches 0)				set top margin to (inches to points inches 0)				set bottom margin to (inches to points inches 0)			end tell						set page fit of zoom of view of active window to page fit full page						--paste special (text object of selection) data type paste text			--toggle portrait page setup of active document		end tell				menu_click({"Word", "Edit", "Paste"})		menu_click({"Word", "Edit", "Find", "Replace..."})				tell application "System Events" to tell process "Microsoft Word"			tell window documentName								repeat until (UI element "Navigation Pane" exists)				end repeat								tell UI element "Navigation Pane" to tell group 1					tell (first combo box whose help is "Search Document")						set value to "^g"					end tell					click button "Find"				end tell								tell tab group 1					repeat until (radio button "Format Picture" exists)					end repeat										click radio button "Format Picture"										tell value indicator 1 of slider 1 of group 2						set value to 23					end tell				end tell							end tell		end tell				tell application ":Applications:Microsoft Office 2011:Microsoft Word.app" to print the active document with print dialog	end ifend runon menu_click(mList)	-- `menu_click`, by Jacob Rus, September 2006	-- 	-- Accepts a list of form: `{"Finder", "View", "Arrange By", "Date"}`	-- Execute the specified menu item.  In this case, assuming the Finder 	-- is the active application, arranging the frontmost folder by date.	local appName, topMenu, r		-- Validate our input	if mList's length &lt; 3 then error "Menu list is not long enough"		-- Set these variables for clarity and brevity later on	set {appName, topMenu} to (items 1 through 2 of mList)	set r to (items 3 through (mList's length) of mList)		-- This overly-long line calls the menu_recurse function with	-- two arguments: r, and a reference to the top-level menu	tell application "System Events" to my menu_click_recurse(r, ((process appName)'s ¬		(menu bar 1)'s (menu bar item topMenu)'s (menu topMenu)))end menu_clickon menu_click_recurse(mList, parentObject)	local f, r		-- `f` = first item, `r` = rest of items	set f to item 1 of mList	if mList's length &gt; 1 then set r to (items 2 through (mList's length) of mList)		-- either actually click the menu item, or recurse again	tell application "System Events"		if mList's length is 1 then			click parentObject's menu item f		else			my menu_click_recurse(r, (parentObject's (menu item f)'s (menu f)))		end if	end tellend menu_click_recurse</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -105,9 +105,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>353.000000:912.000000</string>
+				<string>719.500000:316.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -209,9 +209,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>353.000000:333.000000</string>
+				<string>719.500000:562.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -219,7 +219,7 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>62214695-45F0-4D6B-85EA-DF3FB5996B89</key>
+		<key>40E783B8-52F3-4357-BA46-974D527A940A</key>
 		<dict>
 			<key>from</key>
 			<string>C9955484-F08D-4137-8FC0-CDC8CB8008AE - C9955484-F08D-4137-8FC0-CDC8CB8008AE</string>

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>381</string>
+	<string>419</string>
 	<key>AMApplicationVersion</key>
-	<string>2.4</string>
+	<string>2.6</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>-- Original Creator: Stephen Norum (stephen@mybunnyhug.org)-- Modified by Lawrence Ting (http://lawrenceting.tk/)(*-- Version 2013.5.13	-- 	modified to work properly with Automator	-- Version 2013.10.30	-- modified to work with .doc 	-- hide window during conversion process if there are no other windows running before the conversion process	-- quit Word after conversion process if there are no other windows running before the conversion process	-- Version 2013.11.22	-- Last Updated to work with Mountain Lion and Mavericks on 	-- Last work in Microsoft Word for Mac 2011*)property pdf_ext : ".pdf"global count_of_windowson remove_extension(file_path)	-- remove the extension if it exists	set stripped to do shell script ("F=" &amp; quoted form of file_path &amp; " ; echo ${F%.*}")	return strippedend remove_extensionon get_pdf_path(doc_path)	set doc_path to remove_extension(doc_path)		-- Try the simple name first	set pdf_path to (doc_path &amp; pdf_ext)		-- Otherwise, number the pdfs	set counter to 1	tell application "Finder"		repeat while (exists pdf_path)			set pdf_path to (doc_path &amp; " " &amp; counter &amp; pdf_ext)			set counter to counter + 1		end repeat	end tell		return pdf_pathend get_pdf_pathon run {input, parameters}	set count_of_windows to 1	if application "Microsoft Word" is running then		tell application "Microsoft Word" to set count_of_windows to count of windows		if (count_of_windows is 0) then tell application "Microsoft Word" to quit		delay 0.1	end if		repeat with file_name in input				tell application "Microsoft Word"			open file_name			set the_doc to active document			set doc_path to path of the_doc		end tell				set pdf_path to get_pdf_path(doc_path)				tell application "Microsoft Word"			save as active document file name pdf_path file format format PDF			close active document		end tell	end repeat		tell application "Microsoft Word" to set count_of_windows to count of windows	if (count_of_windows is 0) then tell application "Microsoft Word" to quit	--tell application "Finder" to activate		return inputend run</string>
+					<string>-- Original Creator: Stephen Norum (stephen@mybunnyhug.org)-- Modified by Lawrence Ting (https://github.com/lawrenceting)(*-- Version 2013.5.13	-- 	modified to work properly with Automator	-- Version 2013.10.30	-- modified to work with .doc 	-- hide window during conversion process if there are no other windows running before the conversion process	-- quit Word after conversion process if there are no other windows running before the conversion process	-- Version 2013.11.22	-- Last Updated to work with Mountain Lion and Mavericks on 	-- Last work in Microsoft Word for Mac 2011	-- Version 2015.1.08	-- Solved conflict with Office 2016*)property pdf_ext : ".pdf"property wordapp : application ":Applications:Microsoft Office 2011:Microsoft Word.app"on run {input, parameters}	repeat with file_name in input		tell application ":Applications:Microsoft Office 2011:Microsoft Word.app"			open file_name			set doc_path to path of active document		end tell				set pdf_path to get_pdf_path(doc_path)				tell application ":Applications:Microsoft Office 2011:Microsoft Word.app"			save as active document file name pdf_path file format format PDF			close active document		end tell	end repeat		tell wordapp to if (count of windows) is 0 then quit --quit_word_if_no_windows_opened()end runon remove_extension(file_path)	-- remove the extension if it exists	set stripped to do shell script ("F=" &amp; quoted form of file_path &amp; " ; echo ${F%.*}")	return strippedend remove_extensionon get_pdf_path(doc_path)	set doc_path to remove_extension(doc_path)		-- Try the simple name first	set pdf_path to (doc_path &amp; pdf_ext)		-- Otherwise, number the pdfs	set counter to 1	tell application "Finder"		repeat while (exists pdf_path)			set pdf_path to (doc_path &amp; " " &amp; counter &amp; pdf_ext)			set counter to counter + 1		end repeat	end tell		return pdf_pathend get_pdf_path</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -105,9 +105,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>360.500000:731.000000</string>
+				<string>359.500000:316.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -209,9 +209,9 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>360.500000:418.000000</string>
+				<string>359.500000:562.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -219,7 +219,7 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>52B3578E-CB6B-43FF-BA28-802C93BD5FF0</key>
+		<key>9D0BD808-1EE9-426D-9828-949BCBFAA3C8</key>
 		<dict>
 			<key>from</key>
 			<string>F372B4CC-BE96-477A-BEBB-633EAA4DECD4 - F372B4CC-BE96-477A-BEBB-633EAA4DECD4</string>

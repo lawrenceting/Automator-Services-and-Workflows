@@ -14,6 +14,7 @@ Mac OS X Automator Services And Workflows
 * 🎨 Rotate Image(s).workflow
 * 🎵 Import Files into iTunes (A).workflow
 * 🎵 Import Files into iTunes (V).workflow
+* 📷 Import Photos into Separate Albums.workflow
 * 👾 Enable GUI Scripting.workflow
 * 👾 Hide Application Icon.workflow
 * 👾 Open with AppleScript Editor.workflow
@@ -53,7 +54,7 @@ Mac OS X Automator Services And Workflows
 
 ## Installation
 
-[Download](//github.com/lawrenceting/Automator-Services-and-Workflows---10.10---Yosemite/archive/master.zip) and copy automator workflows to "~/Library/Services".
+[Download](//github.com/lawrenceting/Automator-Services-and-Workflows---10.11---El-Capitan/archive/master.zip) and copy automator workflows to "~/Library/Services".
 
 ## Donations
 
