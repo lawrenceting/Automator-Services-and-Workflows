@@ -53,7 +53,7 @@ Mac OS X Automator Services And Workflows
 
 ## Installation
 
-[Download](//github.com/lawrenceting/Automator-Services-and-Workflows---10.10---Yosemite/archive/master.zip) and copy automator workflows to "~/Library/Services".
+[Download](//github.com/lawrenceting/Automator-Services-and-Workflows---10.9---Mavericks/archive/master.zip) and copy automator workflows to "~/Library/Services".
 
 ## Donations
 

@@ -1,244 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>AMApplicationBuild</key>
-	<string>409.1</string>
-	<key>AMApplicationVersion</key>
-	<string>2.5</string>
-	<key>AMDocumentVersion</key>
-	<string>2</string>
-	<key>actions</key>
-	<array>
-		<dict>
-			<key>action</key>
-			<dict>
-				<key>AMAccepts</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Optional</key>
-					<true/>
-					<key>Types</key>
-					<array>
-						<string>com.apple.applescript.object</string>
-					</array>
-				</dict>
-				<key>AMActionVersion</key>
-				<string>1.0.2</string>
-				<key>AMApplication</key>
-				<array>
-					<string>Automator</string>
-				</array>
-				<key>AMParameterProperties</key>
-				<dict>
-					<key>source</key>
-					<dict/>
-				</dict>
-				<key>AMProvides</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Types</key>
-					<array>
-						<string>com.apple.applescript.object</string>
-					</array>
-				</dict>
-				<key>ActionBundlePath</key>
-				<string>/System/Library/Automator/Run AppleScript.action</string>
-				<key>ActionName</key>
-				<string>Run AppleScript</string>
-				<key>ActionParameters</key>
-				<dict>
-					<key>source</key>
-					<string>-- this script uses the commandline too "exiftool" to extract GPS information from image fileson run {input, parameters}	-- this script uses the commandline too "exiftool" to extract GPS information from image files			tell application "iPhoto"		set photoList to selection		set thisPhoto to item 1 of photoList		set thePath to original path of thisPhoto	end tell		set theResut to do shell script "find " &amp; quoted form of thePath &amp; " -exec exiftool -GPSPosition -b {} \\;"		-- -b : Output requested metadata in binary format without tag names or descriptions.		if the theResut is not "" then				activate --To bring pop-up window to front				set button1 to "Open in Maps"		set button2 to "Open in Google Maps"		set button3 to "Quit"				set dialogBox to display dialog "GPS Position:" default answer theResut with icon 1 ¬			buttons {button1, button2, button3} ¬			default button 3				set buttonReturned to button returned of dialogBox		set theMessage to (text returned of dialogBox)				if buttonReturned is button1 then			tell application "Safari"				open location "http://maps.apple.com/?q=" &amp; theResut				repeat until application "Maps" is running				end repeat				quit			end tell			activate application "Maps"					else if buttonReturned is button2 then			set theBrowser to "Firefox"			tell application theBrowser				activate				open location "https://www.google.com/maps/search/" &amp; theResut			end tell					end if			else		activate (display dialog "Unable to find GPS position." giving up after 1)	end if	end run</string>
-				</dict>
-				<key>BundleIdentifier</key>
-				<string>com.apple.Automator.RunScript</string>
-				<key>CFBundleVersion</key>
-				<string>1.0.2</string>
-				<key>CanShowSelectedItemsWhenRun</key>
-				<false/>
-				<key>CanShowWhenRun</key>
-				<true/>
-				<key>Category</key>
-				<array>
-					<string>AMCategoryUtilities</string>
-				</array>
-				<key>Class Name</key>
-				<string>RunScriptAction</string>
-				<key>InputUUID</key>
-				<string>2CCA5C85-9C34-4BF6-AB8A-B79420C172A0</string>
-				<key>Keywords</key>
-				<array>
-					<string>Run</string>
-				</array>
-				<key>OutputUUID</key>
-				<string>A4FE1FED-BCEE-42D5-9E89-07C6EF552944</string>
-				<key>UUID</key>
-				<string>E6F51369-5077-439C-91F2-DAA8FB8B19AF</string>
-				<key>UnlocalizedApplications</key>
-				<array>
-					<string>Automator</string>
-				</array>
-				<key>arguments</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>default value</key>
-						<string>on run {input, parameters}
-	
-	(* Your script goes here *)
-	
-	return input
-end run</string>
-						<key>name</key>
-						<string>source</string>
-						<key>required</key>
-						<string>0</string>
-						<key>type</key>
-						<string>0</string>
-						<key>uuid</key>
-						<string>0</string>
-					</dict>
-				</dict>
-				<key>isViewVisible</key>
-				<true/>
-				<key>location</key>
-				<string>529.000000:316.000000</string>
-				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
-			</dict>
-			<key>isViewVisible</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>action</key>
-			<dict>
-				<key>AMAccepts</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Optional</key>
-					<true/>
-					<key>Types</key>
-					<array>
-						<string>com.apple.applescript.object</string>
-					</array>
-				</dict>
-				<key>AMActionVersion</key>
-				<string>1.0.2</string>
-				<key>AMApplication</key>
-				<array>
-					<string>Automator</string>
-				</array>
-				<key>AMParameterProperties</key>
-				<dict>
-					<key>source</key>
-					<dict/>
-				</dict>
-				<key>AMProvides</key>
-				<dict>
-					<key>Container</key>
-					<string>List</string>
-					<key>Types</key>
-					<array>
-						<string>com.apple.applescript.object</string>
-					</array>
-				</dict>
-				<key>ActionBundlePath</key>
-				<string>/System/Library/Automator/Run AppleScript.action</string>
-				<key>ActionName</key>
-				<string>Run AppleScript</string>
-				<key>ActionParameters</key>
-				<dict>
-					<key>source</key>
-					<string>on run {input, parameters}	killApp("WorkflowServiceRunner")end runon killApp(badapp)	do shell script "ps ax | grep -i " &amp; quoted form of badapp &amp; " | grep -v grep | cut -c 1-6"	set pNum to result	try		do shell script "kill -9 " &amp; pNum	end tryend killApp</string>
-				</dict>
-				<key>BundleIdentifier</key>
-				<string>com.apple.Automator.RunScript</string>
-				<key>CFBundleVersion</key>
-				<string>1.0.2</string>
-				<key>CanShowSelectedItemsWhenRun</key>
-				<false/>
-				<key>CanShowWhenRun</key>
-				<true/>
-				<key>Category</key>
-				<array>
-					<string>AMCategoryUtilities</string>
-				</array>
-				<key>Class Name</key>
-				<string>RunScriptAction</string>
-				<key>InputUUID</key>
-				<string>60676D6F-E7A4-4ECF-A67D-48684A4F8C97</string>
-				<key>Keywords</key>
-				<array>
-					<string>Run</string>
-				</array>
-				<key>OutputUUID</key>
-				<string>244DDCE0-5C01-43F8-883C-0FD122DA4A6C</string>
-				<key>UUID</key>
-				<string>5B37CA52-180B-462D-96D0-1F4A1631ECFD</string>
-				<key>UnlocalizedApplications</key>
-				<array>
-					<string>Automator</string>
-				</array>
-				<key>arguments</key>
-				<dict>
-					<key>0</key>
-					<dict>
-						<key>default value</key>
-						<string>on run {input, parameters}
-	
-	(* Your script goes here *)
-	
-	return input
-end run</string>
-						<key>name</key>
-						<string>source</string>
-						<key>required</key>
-						<string>0</string>
-						<key>type</key>
-						<string>0</string>
-						<key>uuid</key>
-						<string>0</string>
-					</dict>
-				</dict>
-				<key>isViewVisible</key>
-				<true/>
-				<key>location</key>
-				<string>529.000000:562.000000</string>
-				<key>nibPath</key>
-				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
-			</dict>
-			<key>isViewVisible</key>
-			<true/>
-		</dict>
-	</array>
-	<key>connectors</key>
-	<dict>
-		<key>495A4C68-5A77-4E14-B027-078491C8C939</key>
-		<dict>
-			<key>from</key>
-			<string>E6F51369-5077-439C-91F2-DAA8FB8B19AF - E6F51369-5077-439C-91F2-DAA8FB8B19AF</string>
-			<key>to</key>
-			<string>5B37CA52-180B-462D-96D0-1F4A1631ECFD - 5B37CA52-180B-462D-96D0-1F4A1631ECFD</string>
-		</dict>
-	</dict>
-	<key>workflowMetaData</key>
-	<dict>
-		<key>serviceApplicationBundleID</key>
-		<string>com.apple.iPhoto</string>
-		<key>serviceApplicationPath</key>
-		<string>/Applications/iPhoto.app</string>
-		<key>serviceInputTypeIdentifier</key>
-		<string>com.apple.Automator.nothing</string>
-		<key>serviceOutputTypeIdentifier</key>
-		<string>com.apple.Automator.nothing</string>
-		<key>serviceProcessesInput</key>
-		<integer>0</integer>
-		<key>workflowTypeIdentifier</key>
-		<string>com.apple.Automator.servicesMenu</string>
-	</dict>
-</dict>
-</plist>
