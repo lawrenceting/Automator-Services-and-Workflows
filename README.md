@@ -44,13 +44,13 @@ Mac OS X Automator Services And Workflows
 *   Open Services Folder.workflow
 * 🔗 Create SymLink.workflow
 * 📷 Import Photos into Separate Albums.workflow
-Paste and Transform Text….workflow
-Paste as Plain Text.workflow
-Transform Selected Text….workflow
+* Paste and Transform Text….workflow
+* Paste as Plain Text.workflow
+* Transform Selected Text….workflow
 
 ## Installation
 
-[Download](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.12-Sierra.zip) and copy automator workflows to "~/Library/Services".
+[Download](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/master.zip) and copy automator workflows to "~/Library/Services".
 
 For older versions of Mac OS:
 * [10.9 Mavericks](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.9-Mavericks.zip)
