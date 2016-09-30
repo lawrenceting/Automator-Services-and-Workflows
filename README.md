@@ -55,7 +55,7 @@ Transform Selected Text….workflow
 For older versions of Mac OS:
 * [10.9 Mavericks](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.9-Mavericks.zip)
 * [10.10 Yosemite](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.10-Yosemite.zip)
-* [10.11 El-Capitan](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.11-El-Capitan.zip)
+* [10.11 El Capitan](//github.com/lawrenceting/Automator-Services-and-Workflows/archive/10.11-El-Capitan.zip)
 
 
 ## Donations
