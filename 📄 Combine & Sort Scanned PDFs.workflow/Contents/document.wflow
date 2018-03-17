@@ -51,8 +51,8 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>dialogMessage</key>
-					<string>1. Select the 'odd' pages:
-2. Select the ‘even’ pages which are in reversed order:</string>
+					<string>1. Select PDF with 'odd' numbered pages.
+2. Select PDF with ‘even’ numbered pages in reversed order.</string>
 					<key>timeoutValue</key>
 					<integer>1</integer>
 					<key>useTimeout</key>
@@ -1483,61 +1483,61 @@ end run</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>1D274EC4-E264-409F-83DF-293A49E845A3</key>
+		<key>09EA674F-5F1D-4C0B-AEF0-48D5E703B6C4</key>
 		<dict>
 			<key>from</key>
-			<string>4EBBDC91-1DBE-47DC-9875-AEEB890A03BC - 4EBBDC91-1DBE-47DC-9875-AEEB890A03BC</string>
-			<key>to</key>
-			<string>04AD9FC5-8BB6-4346-82D2-D2A744130758 - 04AD9FC5-8BB6-4346-82D2-D2A744130758</string>
-		</dict>
-		<key>1FB3250B-9610-410A-B855-9C9815508EA7</key>
-		<dict>
-			<key>from</key>
-			<string>1EEC0DF6-0295-4737-860C-B24F8628AEB7 - 1EEC0DF6-0295-4737-860C-B24F8628AEB7</string>
-			<key>to</key>
 			<string>010517F5-4EF3-4B38-9909-D1D19B3233E7 - 010517F5-4EF3-4B38-9909-D1D19B3233E7</string>
-		</dict>
-		<key>5837DA84-4439-45B2-A775-6B4D1C7C4CE9</key>
-		<dict>
-			<key>from</key>
-			<string>04AD9FC5-8BB6-4346-82D2-D2A744130758 - 04AD9FC5-8BB6-4346-82D2-D2A744130758</string>
 			<key>to</key>
-			<string>C17E8041-8890-4EEC-85C8-096EDA2C6E4F - C17E8041-8890-4EEC-85C8-096EDA2C6E4F</string>
+			<string>22A1351E-B108-4448-8E7C-854097B11A9E - 22A1351E-B108-4448-8E7C-854097B11A9E</string>
 		</dict>
-		<key>5AEECFCF-0105-4199-8111-84242917C344</key>
+		<key>6F843811-5B38-41CA-9B2F-6BCF510408A2</key>
 		<dict>
 			<key>from</key>
 			<string>2B9E11C7-9539-40D5-895B-9EF611696F48 - 2B9E11C7-9539-40D5-895B-9EF611696F48</string>
 			<key>to</key>
 			<string>4EBBDC91-1DBE-47DC-9875-AEEB890A03BC - 4EBBDC91-1DBE-47DC-9875-AEEB890A03BC</string>
 		</dict>
-		<key>61BA24FC-A93A-44BB-B586-A20D873B487E</key>
-		<dict>
-			<key>from</key>
-			<string>22A1351E-B108-4448-8E7C-854097B11A9E - 22A1351E-B108-4448-8E7C-854097B11A9E</string>
-			<key>to</key>
-			<string>DD512660-A6B0-4423-9082-A09C7DA3D803 - DD512660-A6B0-4423-9082-A09C7DA3D803</string>
-		</dict>
-		<key>8A47E6C6-308B-401F-9A21-38C7853061AF</key>
+		<key>7BAB77EC-7D54-4A70-9128-766C0426AA11</key>
 		<dict>
 			<key>from</key>
 			<string>C17E8041-8890-4EEC-85C8-096EDA2C6E4F - C17E8041-8890-4EEC-85C8-096EDA2C6E4F</string>
 			<key>to</key>
 			<string>1EEC0DF6-0295-4737-860C-B24F8628AEB7 - 1EEC0DF6-0295-4737-860C-B24F8628AEB7</string>
 		</dict>
-		<key>AC58C743-7D5F-48C2-9216-00CED8A37DA1</key>
-		<dict>
-			<key>from</key>
-			<string>010517F5-4EF3-4B38-9909-D1D19B3233E7 - 010517F5-4EF3-4B38-9909-D1D19B3233E7</string>
-			<key>to</key>
-			<string>22A1351E-B108-4448-8E7C-854097B11A9E - 22A1351E-B108-4448-8E7C-854097B11A9E</string>
-		</dict>
-		<key>F265255B-B49F-4C51-9563-B74DC1C8BD18</key>
+		<key>89A66FD2-FECA-4945-ADF1-98A8B0CE5B43</key>
 		<dict>
 			<key>from</key>
 			<string>DD512660-A6B0-4423-9082-A09C7DA3D803 - DD512660-A6B0-4423-9082-A09C7DA3D803</string>
 			<key>to</key>
 			<string>BC181045-5F48-42ED-AE19-6A640C8D51C3 - BC181045-5F48-42ED-AE19-6A640C8D51C3</string>
+		</dict>
+		<key>99AC126A-D616-45F4-B89A-A97CE1698C7D</key>
+		<dict>
+			<key>from</key>
+			<string>04AD9FC5-8BB6-4346-82D2-D2A744130758 - 04AD9FC5-8BB6-4346-82D2-D2A744130758</string>
+			<key>to</key>
+			<string>C17E8041-8890-4EEC-85C8-096EDA2C6E4F - C17E8041-8890-4EEC-85C8-096EDA2C6E4F</string>
+		</dict>
+		<key>C6FED12F-2033-4F87-9179-4AE6A8B2407E</key>
+		<dict>
+			<key>from</key>
+			<string>22A1351E-B108-4448-8E7C-854097B11A9E - 22A1351E-B108-4448-8E7C-854097B11A9E</string>
+			<key>to</key>
+			<string>DD512660-A6B0-4423-9082-A09C7DA3D803 - DD512660-A6B0-4423-9082-A09C7DA3D803</string>
+		</dict>
+		<key>CCB4A10F-4C80-4E41-8B6D-62013B694D21</key>
+		<dict>
+			<key>from</key>
+			<string>1EEC0DF6-0295-4737-860C-B24F8628AEB7 - 1EEC0DF6-0295-4737-860C-B24F8628AEB7</string>
+			<key>to</key>
+			<string>010517F5-4EF3-4B38-9909-D1D19B3233E7 - 010517F5-4EF3-4B38-9909-D1D19B3233E7</string>
+		</dict>
+		<key>E67794FD-99FD-4292-8711-3E4AF741C8C7</key>
+		<dict>
+			<key>from</key>
+			<string>4EBBDC91-1DBE-47DC-9875-AEEB890A03BC - 4EBBDC91-1DBE-47DC-9875-AEEB890A03BC</string>
+			<key>to</key>
+			<string>04AD9FC5-8BB6-4346-82D2-D2A744130758 - 04AD9FC5-8BB6-4346-82D2-D2A744130758</string>
 		</dict>
 	</dict>
 	<key>variables</key>
