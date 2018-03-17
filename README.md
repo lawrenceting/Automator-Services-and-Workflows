@@ -16,6 +16,7 @@ Mac OS X Automator Services And Workflows
 * 👾 Open with Automator.workflow
 * 📂 MD5 Checksum.workflow
 * 📂 Rename Files.workflow
+* 📄 Combine & Sort Scanned PDFs
 * 📄 Compress PDF.workflow
 * 📄 Convert Documents To PDF.workflow
 * 📄 Convert Image to PDF.workflow
